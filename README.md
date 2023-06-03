@@ -43,8 +43,36 @@ Los cambios previeamente subidos al commit son subidos al repositorio.
 
 Descarga todos los archivos del repositorio y los fusiona con tus archivos locales
 
+## Funcionalidade de HTML
 
+En este apartado voy a ir dejando cosas que me parecieron interasantes de HTML y que creo pueden ser muy utiles
 
+#### Tipos de inputs
 
+Input text permite ingresar texto
+
+    <input type="text">
+
+Input number solo permite ingresar numeros 
+
+    <input type="number">
+
+#### Condiciones para los inputs
+
+Para que el input tenga un minimo de caracteres podemos usar 
+
+    minlength="8"
+
+Para que el input tenga un maximo de caracteres podemos usar
+
+    maxlength="20"
+
+Para que solo permita letras podemos usar 
+
+    pattern="[A-Za-z]+"
+
+Para que no se permita enviar el formulario vacio podemos usar
+
+    required
 
 
