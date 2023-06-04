@@ -15,47 +15,42 @@
 //mensaje al usuario diciéndole que la letra que ha indicado no es correcta. En otro
 //caso, se muestra un mensaje indicando que el número y la letra de DNI son correctos.
 
-$letters = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+if(!isset($_POST['dni'])){
+    echo "Error, debe ingresar su dni";
+    exit();
+};
+
+if(!isset($_POST['userLetter'])){
+    echo "Error, debe ingresar una letra";
+    exit();
+};
 
 $dni = $_POST['dni'];
-
 $userLetter = strtoupper($_POST['userLetter']);
 
-if (!validateInputNumber($dni)) {
+if (!($dni > 0 && $dni <= 99999999)) { 
     echo "El dni debe de tener máximo ocho dígitos y ser mayor a cero";
+    exit();
 };
 
-if (!velidateInputLetter($userLetter)){
+if (empty($userLetter) || !(preg_match('/^[A-Z]$/', $userLetter))){
     echo "Debe ingresar una letra y caracteres especiales no estan permitidos";
+    exit();
 };
 
-function velidateInputLetter($userLetter){
-    if(empty($userLetter) || preg_match('/^[A-Za-z]$/', $userLetter)){
-        return false;
-    };
-    return true;
+function getLetterForDni($dni){
+    $LETTERS = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+    return $LETTERS[$dni % 23];
 };
 
-function validateInputNumber($dni){
-    if($dni < 0 || $dni <= 99999999){
-        return false;
-    };
-    return true;
-};
-
-function getLetter($dni, $letters){
-    $getModuleDni = $dni % 23;
-    $obtainLetter = $letters[$getModuleDni];
-    return $obtainLetter;
-};
-
-function espectedLetter ($dni, $letters, $userLetter){
-    if(getLetter($dni, $letters) === $userLetter){
+function assertCorrectLetter ($computedLetter, $userLetter){
+    if($computedLetter == $userLetter){
         echo "La letra ingresada coidice";
     }else{
         echo "La letra ingresada no coicide";
     };
 };
 
-$matchLetter = espectedLetter($dni, $letters, $userLetter);
+$computedLetter = getLetterForDni($dni);
+$matchLetter = assertCorrectLetter($computedLetter, $userLetter);
 ?>

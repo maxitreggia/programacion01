@@ -6,30 +6,35 @@
 //supere al número ingresado desde el HTML. Luego, que haga lo mismo, pero esta
 //vez, deberá imprimir la sucesión en orden inverso (..., 64, 32, 16, 8, 4, 2, 1).
 
-function getArray ($maxValueOfArray){
-    if(isset($_POST['number'])){
-        $maxValueOfArray = $_POST['number'];
-        $incrementArray = [];
-        $value = 1;
-        while($value <= $maxValueOfArray){
-            $incrementArray[] = $value;
-            $value *= 2;
-        };
+if(!isset($_POST['number'])){
+    echo "Error, no ingreso un numero. Ingrese un numero mayor a cero.";
+    exit();
+};
+
+if(gettype($_POST['number']) != 'intenger'){
+    //esta validacion no es necesaria si el POST se genera desde el HTML. Pero si el POST 
+    //se genera desde un cliente externo (como POSTMAN) esta validacion sera util
+    echo "Error, el argumento enviado no es un numero";
+    exit();
+};
+
+if($_POST['number'] <= 0){
+    echo "Error, ingrese un numero mayor a cero.";
+    exit();
+};
+
+function generateSequence ($maxValue){
+    $sequence = [];
+    for($value = 1; $value <= $maxValue; $value *= 2){
+        $sequence[] = $value;
     };
-    return $incrementArray;
+    return $sequence;
 };
 
-function getDescendingArray ($incrementArray){
-    $descendingArray = $incrementArray;
-    rsort($descendingArray);
-    return $descendingArray;
-};
+$sequence = generateSequence($_POST['number']);
+$reversedSequence = array_reverse($sequence); // 
 
-$incrementArray = getArray($_POST['number']);
-
-$descendingArray = getDescendingArray($incrementArray);
-
-echo "Array generado:" . "</br>" . "[" . implode(", ", $incrementArray) . "]" . "</br>";
-echo "</br>" . "Array decresiente:" . "</br>" . "[" . implode(", ", $descendingArray) . "]" . "</br>";
+echo "Array generado:" . "</br>" . "[" . implode(", ", $sequence) . "]" . "</br>";
+echo "</br>" . "Array decreciente:" . "</br>" . "[" . implode(", ", $reversedSequence) . "]" . "</br>";
 
 ?>

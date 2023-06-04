@@ -10,4 +10,32 @@
 // Ejemplo 1: do mi fa mi | si do sol fa | fa re si do | sol mi re do ||
 // Ejemplo 2: la re mi sol | fa mi mi si | do la sol fa | fa re si sol | do sol mi re | fa la do la ||
 
+$notes = array('do', 're', 'mi', 'fa', 'sol', 'la', 'si');
+
+function getNotesForCompass($notes){  // notas de cada compas
+    for ($i = 0; $i < 4; $i++) {
+        $fourNotes[] = $notes[array_rand($notes)];
+    };
+    return $fourNotes;
+};
+
+function getQuantityOfCompass ($number){ // numero de compases que van a formar la melodia
+    $number  = rand(4, 28);
+    $compass = floor($number / 4) * 4;
+    return $compass; 
+};
+
+function generateMelody($notes){
+    $melody = array();  
+    $numCompasses = getQuantityOfCompass(28);   
+    for ($i = 0; $i < $numCompasses; $i++) {
+        $compass = getNotesForCompass($notes);
+        $melody[] = implode(' ', $compass);
+    }  
+    return implode(' | ', $melody);
+}
+
+$melody = generateMelody($notes);
+echo $melody;
+
 ?>

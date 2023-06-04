@@ -4,14 +4,10 @@
 //números generados, los dos menores números generados y el promedio de todos los
 //números del array. Deberá imprimir esos cinco valores.
 
-$lenght = 50; // cantidad de elementos del array
-$min = 1; // valor minimo del array
-$max = 1000; // valor maximo del arrray
-
-function getRandomArray($lenght, $min, $max){
+function getRandomArray($lenght, $min, $max){  
     $randomArray = [];
     while(count($randomArray) < $lenght){
-        $number =rand($min, $max);
+        $number = rand($min, $max);
         if (!in_array($number, $randomArray)){
             $randomArray[] = $number;
         };
@@ -19,55 +15,37 @@ function getRandomArray($lenght, $min, $max){
     return $randomArray;
 };
 
-function sortRandomArray($randomArray){
-    $sortedArray = $randomArray;
-    sort($sortedArray);
-    return $sortedArray;
+function sortArrayInNewArray($array){
+    // En PHP los argumentos son pasados por valor en vez de por referencia.
+    // Por lo cual, ordenar el array en esta funcion no altera el array original.
+    sort($array);
+    return $array;
 };
 
-function getMaxValue ($randomArray){
-    $maxValue = max($randomArray);   
-    return $maxValue;
+function secondMax($sortedArray){
+    // Se espera que el array este ordenado. // validar?
+    return $sortedArray[sizeof($sortedArray)-2];
 };
 
-function getSecondMaxValue ($randomArray){
-    sort($randomArray);
-    $secondMaxValue = $randomArray[sizeof($randomArray)-2];
-    return $secondMaxValue;
+function secondMin($sortedArray){
+    // Se espera que el array este ordenado.
+    return $sortedArray[1];
 };
 
-function getLowerValue ($randomArray){
-    $lowerValue = min($randomArray);
-    return $lowerValue;
+function average($array){
+    return array_sum($array)/count($array); 
 };
 
-function getSecondLowerValue($randomArray){
-    sort($randomArray);
-    $SecondLowerValue = $randomArray[1];
-    return $SecondLowerValue;;
-};
-
-function getAvarageValue($randomArray){
-    $avarageValue = array_sum($randomArray)/count($randomArray);
-    return $avarageValue;
-};
-
-$randomArray = getRandomArray($lenght, $min, $max);
-
-$sortRandomArray = sortRandomArray($randomArray);
-
-$maxValue = getMaxValue($randomArray);
-
-$secondMaxValue = getSecondMaxValue($randomArray);
-
-$lowerValue = getLowerValue($randomArray);
-
-$SecondLowerValue = getSecondLowerValue($randomArray);
-
-$avarageValue = getAvarageValue($randomArray);
+$randomArray = getRandomArray($lenght = 50, $min = 1, $max = 1000);
+$sortedArray = sortArrayInNewArray($randomArray);
+$maxValue = max($sortedArray);
+$secondMaxValue = secondMax($sortedArray);
+$lowerValue = min($sortedArray);
+$SecondLowerValue = secondMin($sortedArray);
+$avarageValue = average($sortedArray);
 
 echo "Array generado:" . "</br>" . "[" . implode(", ", $randomArray) . "]" . "</br>";
-echo "</br>" . "Array ordenado de mayor a menor" . "</br>" . "[" . implode(", ", $sortRandomArray) . "]" . "</br>";
+echo "</br>" . "Array ordenado de mayor a menor" . "</br>" . "[" . implode(", ", $sortedArray) . "]" . "</br>";
 echo "</br>" . "Valor maximo del array es: " . $maxValue . "</br>";
 echo "</br>" . "Segundo valor maximo del array es: " . $secondMaxValue . "</br>";
 echo "</br>" . "Valor minimo del array es: " . $lowerValue . "</br>";

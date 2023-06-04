@@ -31,11 +31,11 @@ $arrayNumber = convertToArray($inputNumber);
 
 $arrayDigit = convertToArray($inputDigit);
 
-$equalsAre = findEquals($arrayNumber, $arrayDigit);
+$equalsPosition = findEquals($arrayNumber, $arrayDigit);
 
 echo "El numero ingresado es: {$inputNumber } </br>";
 
 echo "</br> El digito ingresado es: {$inputDigit} </br>";
 
-echo "</br> Las posiciones en las que los valores son iguales son: </br>" . implode(", ", $equalsAre);
+echo "</br> Las posiciones en las que los valores son iguales son: </br>" . implode(", ", $equalsPosition);
 ?>
