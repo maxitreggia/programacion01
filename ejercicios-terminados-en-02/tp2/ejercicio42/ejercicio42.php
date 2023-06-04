@@ -25,7 +25,7 @@ if(!isset($_POST['userLetter'])){
     exit();
 };
 
-$dni = $_POST['dni'];
+$dni = intval($_POST['dni']);
 $userLetter = strtoupper($_POST['userLetter']);
 
 if (!($dni > 0 && $dni <= 99999999)) { 

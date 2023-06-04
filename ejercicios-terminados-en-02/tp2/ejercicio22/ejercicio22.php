@@ -11,17 +11,13 @@ if(!isset($_POST['number'])){
     exit();
 };
 
-if(gettype($_POST['number']) != 'intenger'){
-    //esta validacion no es necesaria si el POST se genera desde el HTML. Pero si el POST 
-    //se genera desde un cliente externo (como POSTMAN) esta validacion sera util
-    echo "Error, el argumento enviado no es un numero";
-    exit();
-};
+$number = intval($_POST['number']);
 
-if($_POST['number'] <= 0){
+if($number <= 0){
     echo "Error, ingrese un numero mayor a cero.";
     exit();
 };
+
 
 function generateSequence ($maxValue){
     $sequence = [];
@@ -31,7 +27,7 @@ function generateSequence ($maxValue){
     return $sequence;
 };
 
-$sequence = generateSequence($_POST['number']);
+$sequence = generateSequence($number);
 $reversedSequence = array_reverse($sequence); // 
 
 echo "Array generado:" . "</br>" . "[" . implode(", ", $sequence) . "]" . "</br>";

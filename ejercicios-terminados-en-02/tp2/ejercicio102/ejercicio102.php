@@ -1,5 +1,5 @@
 <?php
-// Realiza un generador de melodía con las siguientes condiciones:
+// Realiza un generador de melodía con las siguientes condiciones:                                          
 // a) Las notas deben estar generadas al azar. Las 7 notas son do, re, mi, fa, sol, la y si.
 // b) Una melodía está formada por un número aleatorio de notas mayor o igual a 4,
 // menor o igual a 28 y siempre múltiplo de 4 (4, 8, 12...).
@@ -10,32 +10,32 @@
 // Ejemplo 1: do mi fa mi | si do sol fa | fa re si do | sol mi re do ||
 // Ejemplo 2: la re mi sol | fa mi mi si | do la sol fa | fa re si sol | do sol mi re | fa la do la ||
 
-$notes = array('do', 're', 'mi', 'fa', 'sol', 'la', 'si');
+$NOTES = ["do", "re", "mi", "fa", "sol", "la", "si"];
 
-function getNotesForCompass($notes){  // notas de cada compas
+function getNotesForCompass($NOTES){
     for ($i = 0; $i < 4; $i++) {
-        $fourNotes[] = $notes[array_rand($notes)];
+        $fourNotes[] = $NOTES[array_rand($NOTES)];
     };
     return $fourNotes;
 };
 
-function getQuantityOfCompass ($number){ // numero de compases que van a formar la melodia
-    $number  = rand(4, 28);
-    $compass = floor($number / 4) * 4;
-    return $compass; 
+function getQuantityOfCompass(){
+    return rand(1, 28); 
 };
 
-function generateMelody($notes){
+function generateMelody($NOTES){
     $melody = array();  
-    $numCompasses = getQuantityOfCompass(28);   
+    $numCompasses = getQuantityOfCompass();   
     for ($i = 0; $i < $numCompasses; $i++) {
-        $compass = getNotesForCompass($notes);
+        $compass = getNotesForCompass($NOTES);
         $melody[] = implode(' ', $compass);
-    }  
+    };  
+    $melody[] = $melody[0];
     return implode(' | ', $melody);
-}
+};
 
-$melody = generateMelody($notes);
-echo $melody;
+$melody = generateMelody($NOTES);
+
+echo "La melodia generada es: </br> {$melody} ||";
 
 ?>
