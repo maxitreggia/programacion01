@@ -37,5 +37,4 @@ function generateMelody($NOTES){
 $melody = generateMelody($NOTES);
 
 echo "La melodia generada es: </br> {$melody} ||";
-
 ?>
