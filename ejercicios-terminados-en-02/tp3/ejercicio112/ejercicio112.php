@@ -18,42 +18,4 @@
 // 402 225 426 267 330 243 209 426 435 309 356 173 130 416 15 477 34 28 377 193
 // 481 368 466 262 422 275 384 399 397 87 218 84 312 480 207 68 108
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['option'])) {
-      $opcion = $_POST['option'];
-
-      if ($opcion === 'maxValue') {
-        $maxValue = max($array);
-        highlightValue($array, $maxValue);
-      } elseif ($opcion === 'minValue') {
-        $minValue = min($array);
-        highlightValue($array, $minValue);
-      };
-    };
-  };
-
-function getRandomArray($lenght, $min, $max){  
-    $randomArray = [];
-    while(count($randomArray) < $lenght){
-        $number = rand($min, $max);
-        if (!in_array($number, $randomArray)){
-            $randomArray[] = $number;
-        };
-    };
-    return $randomArray;
-};
-  
-function highlightValue($array, $value) {
-    foreach ($array as $num) {
-      if ($num == $value) {
-        echo "**{$num}** ";
-      } else {
-        echo "{$num} ";
-      }
-    }
-};
-
-$array = getRandomArray($lenght = 50, $min = 1, $max = 1000);
-$result = highlightValue($array, $value);
-
 ?>
