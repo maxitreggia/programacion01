@@ -10,14 +10,16 @@
 </head>
 
 <body>
+    
     <!--  http://localhost/index112.html -->
-    <h4>Eliga una opción</h4>
+
     <form action="ejercicio112.php" method="post">
-        <select name="option">
-            <option value="maxValue">Valot Maximo</option>
-            <option value="minValue">Valor Minimo</option>
+        <label for="highlight">Que valor desea destacar?</label>
+        <select name="highlight" id="highlight" required>
+          <option value="minimum">Minimo</option>
+          <option value="maximum">Maximo</option>
         </select>
-        <input type="submit" value="Destacar Valor">
+        <button type="submit">Mostrar numero destacado</button>
     </form>
 
 </body>

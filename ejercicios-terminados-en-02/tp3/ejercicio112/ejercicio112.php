@@ -18,4 +18,34 @@
 // 402 225 426 267 330 243 209 426 435 309 356 173 130 416 15 477 34 28 377 193
 // 481 368 466 262 422 275 384 399 397 87 218 84 312 480 207 68 108
 
+
+function getRandomArray($lenght, $min, $max){  
+    $randomArray = [];
+    for($i = 0; $i < $lenght; $i++){
+        $number = rand($min, $max);
+        if (!in_array($number, $randomArray)){
+            $randomArray[] = $number;
+        };
+    };
+    return $randomArray;
+};
+
+function highlightNumber($randomArray, $highlight){
+    $highlightedNumbers = $randomArray;
+    $highlightIndex = ($highlight === 'minimum') ? array_search(min($randomArray), $randomArray) : array_search(max($randomArray), $randomArray);
+    if ($highlightIndex !== false) {
+        $highlightedNumbers[$highlightIndex] = '**' . $highlightedNumbers[$highlightIndex] . '**';
+    }
+    return $highlightedNumbers;
+};
+
+$highlight = $_POST['highlight'];
+$randomArray = getRandomArray($length = 50, $min = 1, $max = 1000);
+$highlightedNumbers = highlightNumber($randomArray, $highlight);
+
+echo "Numeros generados <br>";
+echo  "[" . implode (' ', $randomArray) . "]" . "<br><br>";
+echo "Valor destacado <br>";
+echo "[" . implode(' ', $highlightedNumbers) . "]";
+
 ?>

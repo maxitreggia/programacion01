@@ -6,7 +6,7 @@
 
 function getRandomArray($lenght, $min, $max){  
     $randomArray = [];
-    while(count($randomArray) < $lenght){
+    for($i = 0; $i < $lenght; $i++){
         $number = rand($min, $max);
         if (!in_array($number, $randomArray)){
             $randomArray[] = $number;
