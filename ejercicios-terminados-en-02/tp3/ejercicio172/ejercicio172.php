@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($character !== "*") {
             $elements[] = $character;
             echo "Elemento: $character - Posición: $i<br>";
-        }
-    }
-}
+        };
+    };
+};
 ?>

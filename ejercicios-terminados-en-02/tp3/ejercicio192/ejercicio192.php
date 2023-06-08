@@ -3,6 +3,7 @@
 // conjunto VEC de N componentes. A partir de este conjunto generar otro FACT en el
 // que cada elemento sea el factorial del elemento homólogo de VEC. Finalmente
 // imprimir ambos vectores a razón de un valor de cada uno por renglón.
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $n = $_POST["valueN"];
 
