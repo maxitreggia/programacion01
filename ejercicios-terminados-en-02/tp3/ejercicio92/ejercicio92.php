@@ -13,7 +13,7 @@ if(empty($inputNumberAsString) || empty($inputDigit)){
 
 if($inputDigit > 9){
     echo "Debe ingresar un solo digito";
-    exit;
+    exit();
 };
 
 function splitNumberToDigits($number){
