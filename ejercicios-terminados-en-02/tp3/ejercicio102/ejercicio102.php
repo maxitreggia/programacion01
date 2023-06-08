@@ -29,12 +29,15 @@ function generateMelody($NOTES){
     for ($i = 0; $i < $numCompasses; $i++) {
         $compass = getNotesForCompass($NOTES);
         $melody[] = implode(' ', $compass);
-    };  
-    $melody[] = $melody[0];
-    return implode(' | ', $melody);
+    };   
+    $firstNote = explode(' ', $melody[0])[0];
+    $lastNote = explode(' ', $melody[$numCompasses - 1])[3]; 
+    $melody[$numCompasses - 1] = str_replace($lastNote, $firstNote, $melody[$numCompasses - 1]);    
+    $melody[] = $melody[0];  
+    return implode(' | ', $melody) . ' ||';
 };
 
 $melody = generateMelody($NOTES);
 
-echo "La melodia generada es: </br> {$melody} ||";
+echo "La melodia generada es: </br> {$melody}";
 ?>
