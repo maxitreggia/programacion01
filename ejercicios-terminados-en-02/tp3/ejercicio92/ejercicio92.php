@@ -3,7 +3,7 @@
 // programa nos debe dar la posición (o posiciones) contando de izquierda a derecha
 // que ocupa ese dígito en el número introducido.
 
-$inputNumberAsString = $_POST['inputNumber']; //No es util como string por eso no lo convertimos a entero.
+$inputNumberAsString = $_POST['inputNumber']; //Nos es util como string por eso no lo convertimos a entero.
 $inputDigit = intval($_POST['inputDigit']);
 
 if(empty($inputNumberAsString) || empty($inputDigit)){

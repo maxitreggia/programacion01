@@ -3,39 +3,45 @@
 // carácter que corresponde al código de la operación a efectuar entre ellos (‘+’; ‘-’; ‘*’;
 // ‘/’). Informar el resultado de cada expresión, por medio de un programa php.
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    function calculateTernary($num1, $num2, $operation)
-    {
-        switch ($operation) {
-            case "+":
-                return $num1 + $num2;
-            case "-":
-                return $num1 - $num2;
-            case "*":
-                return $num1 * $num2;
-            case "/":
-                if ($num2 != 0) {
-                    return $num1 / $num2;
-                } else {
-                    return "Error: Division by zero.";
-                };
-            default:
-                return "Invalid operation.";
-        };
-    };
-
-    function processTernaries($ternaries)
-    {
-        foreach ($ternaries as $index => $ternary) {
-            $num1 = $ternary['num1'];
-            $num2 = $ternary['num2'];
-            $operation = $ternary['operation'];
-            $result = calculateTernary($num1, $num2, $operation);
-            echo "Result of Ternary " . ($index + 1) . ": " . $result . "<br>";
-        };
-    };
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ternaries = $_POST['ternary'];
-    processTernaries($ternaries);
+    if (count($ternaries) === 5) {
+        $results = calculateTernaries($ternaries);
+        for ($i = 0; $i < count($results); $i++) {
+            echo "Resultado de la terna " . ($i + 1) . ": " . $results[$i] . "<br>";
+        };
+    } else {
+        echo "Por favor, ingresa exactamente 5 ternas.";
+    };
+};
+
+function calculateTernaries($ternaries) {
+    $results = array();
+    foreach ($ternaries as $terna) {
+        $num1 = $terna['num1'];
+        $operation = $terna['operation'];
+        $num2 = $terna['num2'];
+        $result = 0;
+        switch ($operation) {
+            case '+':
+                $result = $num1 + $num2;
+                break;
+            case '-':
+                $result = $num1 - $num2;
+                break;
+            case '*':
+                $result = $num1 * $num2;
+                break;
+            case '/':
+                if ($num2 != 0) {
+                    $result = $num1 / $num2;
+                } else {
+                    $result = 'Error: división por cero';
+                };
+                break;
+        };
+        $results[] = $result;
+    };
+    return $results;
 };
 ?>
