@@ -28,7 +28,7 @@
                     echo "<td><input type='number' placeholder='Ingrese el número de legajo' name='student_id[]' id='student-id' required min='0'></td>";
                     echo "<td><input type='number' placeholder='Ingrese la altura' name='height[]' id='height' required min='0'></td>";
                     echo "</tr>";
-                }
+                };
                 ?>
             </tbody>    
         </table>
