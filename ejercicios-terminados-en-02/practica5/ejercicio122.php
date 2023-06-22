@@ -59,7 +59,6 @@ function coordenadasEnArrayBiInt($array, $numero) {
 
 function esPuntoDeSilla($array, $fila, $columna) {
     $numero = $array[$fila][$columna];
-
     foreach ($array[$fila] as $elemento) {
         if ($elemento < $numero) {
             return false;
