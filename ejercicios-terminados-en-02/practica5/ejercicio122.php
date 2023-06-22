@@ -95,8 +95,7 @@ function diagonal($array, $fila, $columna, $direccion) {
 $array = generaArrayBiInt(4, 4, 1, 10);
 echo "Array bidimensional:<br>";
 foreach ($array as $fila) {
-    echo implode(", ", $fila) . "<br>";
-};
+    echo implode(", ", $fila) . "<br>";};
 $fila = filaDeArrayBiInt($array, 2);
 echo "Fila 2: " . implode(", ", $fila) . "<br>";
 $columna = columnaDeArrayBiInt($array, 1);
