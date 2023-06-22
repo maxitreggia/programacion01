@@ -19,3 +19,95 @@
 //izquierda, mientras que la cadena “izde” indica que se elige la diagonal que va de
 //izquierda a derecha.
 //Probar el funcionamiento de todas.
+
+function generaArrayBiInt($n, $m, $min, $max) {
+    $array = array();
+    for ($i = 0; $i < $n; $i++) {
+        $fila = array();
+        for ($j = 0; $j < $m; $j++) {
+            $fila[] = rand($min, $max);
+        };
+        $array[] = $fila;
+    };
+    return $array;
+};
+
+function filaDeArrayBiInt($array, $fila) {
+    return $array[$fila];
+};
+
+function columnaDeArrayBiInt($array, $columna) {
+    $columnaArray = array();
+    foreach ($array as $fila) {
+        $columnaArray[] = $fila[$columna];
+    };
+    return $columnaArray;
+};
+
+function coordenadasEnArrayBiInt($array, $numero) {
+    $coordenadas = array(-1, -1);
+    foreach ($array as $fila => $elementos) {
+        foreach ($elementos as $columna => $valor) {
+            if ($valor == $numero) {
+                $coordenadas = array($fila, $columna);
+                return $coordenadas;
+            };
+        };
+    };
+    return $coordenadas;
+};
+
+function esPuntoDeSilla($array, $fila, $columna) {
+    $numero = $array[$fila][$columna];
+
+    foreach ($array[$fila] as $elemento) {
+        if ($elemento < $numero) {
+            return false;
+        };
+    };
+    foreach ($array as $filaArray) {
+        if ($filaArray[$columna] > $numero) {
+            return false;
+        };
+    };
+    return true;
+};
+
+function diagonal($array, $fila, $columna, $direccion) {
+    $diagonal = array();
+    $n = count($array);
+    $m = count($array[0]);
+    while ($fila >= 0 && $fila < $n && $columna >= 0 && $columna < $m) {
+        $diagonal[] = $array[$fila][$columna];
+        if ($direccion == "deiz") {
+            $fila--;
+            $columna++;
+        } elseif ($direccion == "izde") {
+            $fila--;
+            $columna--;
+        } else {
+            break;
+        };
+    };
+    return $diagonal;
+};
+
+$array = generaArrayBiInt(4, 4, 1, 10);
+echo "Array bidimensional:<br>";
+foreach ($array as $fila) {
+    echo implode(", ", $fila) . "<br>";
+};
+$fila = filaDeArrayBiInt($array, 2);
+echo "Fila 2: " . implode(", ", $fila) . "<br>";
+$columna = columnaDeArrayBiInt($array, 1);
+echo "Columna 1: " . implode(", ", $columna) . "<br>";
+$coordenadas = coordenadasEnArrayBiInt($array, 8);
+echo "Coordenadas de 8: (" . $coordenadas[0] . ", " . $coordenadas[1] . ")<br>";
+$puntoDeSilla = esPuntoDeSilla($array, 2, 1);
+echo "¿El número en la posición (2, 1) es punto de silla? " . ($puntoDeSilla ? "Sí" : "No") . "<br>";
+$diagonal = diagonal($array, 1, 2, "deiz");
+echo "Diagonal de derecha a izquierda (1, 2): " . implode(", ", $diagonal) . "<br>";
+$diagonal = diagonal($array, 0, 3, "izde");
+echo "Diagonal de izquierda a derecha (0, 3): " . implode(", ", $diagonal) . "<br>";
+
+?>
