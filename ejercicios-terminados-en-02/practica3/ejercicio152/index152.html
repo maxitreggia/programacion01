@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 152</title>
+
+</head>
+
+<body>
+
+    <!--  http://localhost/index152.html -->
+
+    <h3>Suma de ternas</h3>
+    <form action="ejercicio152.php" method="post">
+        <table>
+            <tr>
+                <th>Terna Uno</th>
+                <td><input type="number" name="ternary[0][num1]" required></td>
+                <td>
+                    <select name="ternary[0][operation]" required>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input type="number" name="ternary[0][num2]" required></td>
+            </tr>
+            <tr>
+                <th>Terna Dos</th>
+                <td><input type="number" name="ternary[1][num1]" required></td>
+                <td>
+                    <select name="ternary[1][operation]" required>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input type="number" name="ternary[1][num2]" required></td>
+            </tr>
+            <tr>
+                <th>Terna Tres</th>
+                <td><input type="number" name="ternary[2][num1]" required></td>
+                <td>
+                    <select name="ternary[2][operation]" required>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input type="number" name="ternary[2][num2]" required></td>
+            </tr>
+            <tr>
+                <th>Terna Cuatro</th>
+                <td><input type="number" name="ternary[3][num1]" required></td>
+                <td>
+                    <select name="ternary[3][operation]" required>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input type="number" name="ternary[3][num2]" required></td>
+            </tr>
+            <tr>
+                <th>Terna Cinco</th>
+                <td><input type="number" name="ternary[4][num1]" required></td>
+                <td>
+                    <select name="ternary[4][operation]" required>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input type="number" name="ternary[4][num2]" required></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Calcular Ternas">
+    </form>
+</body>
