@@ -19,25 +19,29 @@ if($triangleBase <= 1){
     exit();
 }
 
-function decendentTriangle($baseOfTriangle){
+function generateDecendentTriangle($baseOfTriangle){
+    $triangle ="";
     for ($i = $baseOfTriangle; $i >= 1; $i--) {
         for ($j = 1; $j <= $i; $j++) {
-            echo "*";
+            $triangle .= "*";
         }
-        echo "<br>";
+        $triangle .= "<br>";
     }
+    return $triangle;
 }
-function ascendingTriangle($baseOfTriangle){
+function generateAscendingTriangle($baseOfTriangle){
+    $triangle = "";
     for ($i = 1; $i <= $baseOfTriangle; $i++) {
         for ($j = 1; $j <= $i; $j++) {
-            echo "*";
+            $triangle .= "*";;
         }
-        echo "<br>";
+        $triangle .= "<br>";
     }
+    return $triangle;
 }
 
-echo "Triangulo generada desendiente: <br>";
-decendentTriangle($triangleBase);
-echo "<br> Triangulo generdo ascendente: <br>";
-ascendingTriangle($triangleBase);
+$decendentTriangle = generateDecendentTriangle($triangleBase);
+$ascendingTriangle = generateAscendingTriangle($triangleBase);
+echo "Triangulo generada desendiente: <br>{$decendentTriangle}<br>";
+echo "<br> Triangulo generdo ascendente: <br>{$ascendingTriangle}<br>";
 ?>
