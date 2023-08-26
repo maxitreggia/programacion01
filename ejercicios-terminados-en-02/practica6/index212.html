@@ -10,8 +10,18 @@
 <body>
 <!--  http://localhost/index212.html -->
 
+<h3>Consulta de alumnos por materia</h3>
 <form action="ejercicio212.php" method="post">
-    <input type="submit" value="Mostrar resultado">
+    <label for="id_materia">Selesciones una materia: </label>
+    <select name="id_materia">
+        <option value="1">1 - Programacion II</option>
+        <option value="2">2 - Computacion II</option>
+        <option value="3">3 - Ingles II</option>
+        <option value="4">4 - Filosofia II</option>
+        <option value="5">5 - Matematica II</option>
+        <option value="6">6 - Sistemas Administrativos</option>
+    </select>
+    <input type="submit" value="Consultar materia">
 </form>
 
 </body>

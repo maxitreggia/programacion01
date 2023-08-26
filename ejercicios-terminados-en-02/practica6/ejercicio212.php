@@ -10,31 +10,56 @@
 //todos los registros de alumnos que se anotaron para rendirla y liste sus legajos y sus
 //nombres.
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
 $servername = "localhost";
-$username = "maxi";
+$username = "root";
 $password = "";
 $database = "escuela";
 $port = 3307;
 
-$conn = new mysqli($servername, $username, $password);
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $database, $port);
 
-if ($conn -> connect_error){
+// Verificar la conexión
+if ($conn->connect_error) {
     die("ERROR: Conexión fallida" . $conn->connect_error);
 }
-//echo "Conexión exitosa";
 
-$sql = "SELECT nombre FROM escuela.alumnos";
-$result =  mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0){
-    while ($row = mysqli_fetch_assoc($result)){
-        echo "nombre". $row["nombre"] . "<br>";
-    }
-}else {
-    echo "No hay alumnos inscriptos a esa materia";
+// Seleccionar la base de datos
+if (!$conn->select_db($database)) {
+    die("ERROR: No se pudo seleccionar la base de datos " . $database);
 }
 
-mysqli_close($conn);
+$codigoMateria = $_POST["id_materia"];
+
+// Consulta SQL
+$sql = "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.nombre AS materia
+        FROM alumnos
+        INNER JOIN alumnos_materias ON alumnos.id = alumnos_materias.id_alumno
+        INNER JOIN materias ON alumnos_materias.id_materia = materias.id
+        WHERE alumnos_materias.id_materia = '$codigoMateria';";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo '<table border="1">';
+    echo '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th></tr>';
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr>';
+        echo '<td>' . $row["legajo"] . '</td>';
+        echo '<td>' . $row["nombre"] . '</td>';
+        echo '<td>' . $row["apellido"] . '</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+} else {
+    echo "No hay alumnos inscritos a esa materia";
+}
+
+$conn->close();;
 
 
 ?>
