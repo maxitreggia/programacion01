@@ -27,20 +27,21 @@ $conn = new mysqli($servername, $username, $password, $database, $port);
 if ($conn->connect_error) {
     die("ERROR: Conexión fallida" . $conn->connect_error);
 }
+//echo "Conexión exitorsa";
 
 // Seleccionar la base de datos
 if (!$conn->select_db($database)) {
     die("ERROR: No se pudo seleccionar la base de datos " . $database);
 }
 
-$codigoMateria = $_POST["id_materia"];
+$codeOfSubject = $_POST["id_subject"];
 
 // Consulta SQL
 $sql = "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.nombre AS materia
         FROM alumnos
         INNER JOIN alumnos_materias ON alumnos.id = alumnos_materias.id_alumno
         INNER JOIN materias ON alumnos_materias.id_materia = materias.id
-        WHERE alumnos_materias.id_materia = '$codigoMateria';";
+        WHERE alumnos_materias.id_materia = '$codeOfSubject';";
 
 $result = $conn->query($sql);
 
@@ -60,6 +61,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();;
-
-
 ?>
