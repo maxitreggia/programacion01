@@ -61,4 +61,6 @@ if ($result->num_rows > 0) {
     echo "No hay alumnos inscritos a esa materia";
 }
 
+// echo $codeOfSubject;
+
 ?>
