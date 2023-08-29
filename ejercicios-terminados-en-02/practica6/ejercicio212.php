@@ -49,7 +49,7 @@ function queryStudentsSubject ($code){
 $result = $conn->query(queryStudentsSubject($codeOfSubject));
 
 if ($result->num_rows > 0) {
-    echo '<table>';
+    echo '<table border="2">';
     echo '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th><th>Materia</th></tr>';
     while ($row = $result->fetch_assoc()) {
         echo '<tr>';
