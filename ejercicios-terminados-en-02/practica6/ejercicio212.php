@@ -46,13 +46,14 @@ $sql = "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo '<table border="1">';
-    echo '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th></tr>';
+    echo '<table>';
+    echo '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th><th>Materia</th></tr>';
     while ($row = $result->fetch_assoc()) {
         echo '<tr>';
         echo '<td>' . $row["legajo"] . '</td>';
         echo '<td>' . $row["nombre"] . '</td>';
         echo '<td>' . $row["apellido"] . '</td>';
+        echo '<td>' . $row["materia"] . '</td>';
         echo '</tr>';
     }
     echo '</table>';
@@ -60,5 +61,4 @@ if ($result->num_rows > 0) {
     echo "No hay alumnos inscritos a esa materia";
 }
 
-$conn->close();;
 ?>
