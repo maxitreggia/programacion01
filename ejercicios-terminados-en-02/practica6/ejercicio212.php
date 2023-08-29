@@ -34,16 +34,19 @@ if (!$conn->select_db($database)) {
     die("ERROR: No se pudo seleccionar la base de datos " . $database);
 }
 
+//Numero de materia
 $codeOfSubject = $_POST["id_subject"];
 
 // Consulta SQL
-$sql = "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.nombre AS materia
-        FROM alumnos
-        INNER JOIN alumnos_materias ON alumnos.id = alumnos_materias.id_alumno
-        INNER JOIN materias ON alumnos_materias.id_materia = materias.id
-        WHERE alumnos_materias.id_materia = '$codeOfSubject';";
+function queryStudentsSubject ($code){
+    return "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.nombre AS materia
+            FROM alumnos
+            INNER JOIN alumnos_materias ON alumnos.id = alumnos_materias.id_alumno
+            INNER JOIN materias ON alumnos_materias.id_materia = materias.id
+            WHERE alumnos_materias.id_materia = '$code';";
+}
 
-$result = $conn->query($sql);
+$result = $conn->query(queryStudentsSubject($codeOfSubject));
 
 if ($result->num_rows > 0) {
     echo '<table>';
