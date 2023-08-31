@@ -10,60 +10,62 @@
 //todos los registros de alumnos que se anotaron para rendirla y liste sus legajos y sus
 //nombres.
 
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "escuela";
+$database = "listaAlumnosMaterias";
 $port = 3307;
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $database, $port);
+$db = new mysqli($servername, $username, $password, $database, $port);
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("ERROR: Conexión fallida" . $conn->connect_error);
+if ($db->connect_error) {
+    die("ERROR: Conexión fallida" . $db->connect_error);
 }
 //echo "Conexión exitorsa";
 
-// Seleccionar la base de datos
-if (!$conn->select_db($database)) {
+if (!$db->select_db($database)) {
     die("ERROR: No se pudo seleccionar la base de datos " . $database);
 }
 
-//Numero de materia
 $codeOfSubject = $_POST["id_subject"];
 
-// Consulta SQL
 function queryStudentsSubject ($code){
-    return "SELECT alumnos.id AS legajo, alumnos.nombre, alumnos.apellido, materias.nombre AS materia
-            FROM alumnos
-            INNER JOIN alumnos_materias ON alumnos.id = alumnos_materias.id_alumno
-            INNER JOIN materias ON alumnos_materias.id_materia = materias.id
-            WHERE alumnos_materias.id_materia = '$code';";
+    return "SELECT Alumno.Legajo, Alumno.Nombre, Alumno.Apellido, Materia.NombreMateria, Inscripcion.DiaExamen, Inscripcion.MesExamen, Inscripcion.AnioExamen
+            FROM Alumno
+            INNER JOIN Inscripcion ON Alumno.Legajo = Inscripcion.Legajo
+            INNER JOIN Materia ON Inscripcion.CodigoMateria = Materia.CodigoMateria
+            WHERE Materia.CodigoMateria = '$code';";
 }
 
-$result = $conn->query(queryStudentsSubject($codeOfSubject));
-
-if ($result->num_rows > 0) {
-    echo '<table border="2">';
-    echo '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th><th>Materia</th></tr>';
-    while ($row = $result->fetch_assoc()) {
-        echo '<tr>';
-        echo '<td>' . $row["legajo"] . '</td>';
-        echo '<td>' . $row["nombre"] . '</td>';
-        echo '<td>' . $row["apellido"] . '</td>';
-        echo '<td>' . $row["materia"] . '</td>';
-        echo '</tr>';
+function generateTable ($result){
+    $table = '<table border="2">';
+    $table .= '<tr><th>Legajo</th><th>Nombre</th><th>Apellido</th><th>Materia</th><th>Fecha</th></tr>';
+    foreach ($result as $row){
+        $table .= '<tr>';
+        $table .='<td>' . $row["Legajo"] . '</td>';
+        $table .='<td>' . $row["Nombre"] . '</td>';
+        $table .='<td>' . $row["Apellido"] . '</td>';
+        $table .='<td>' . $row["NombreMateria"] . '</td>';
+        $table .='<td>' . $row["DiaExamen"] ."/". $row["MesExamen"] ."/". $row["AnioExamen"] . '</td>';
+        $table .= "</tr>";
     }
-    echo '</table>';
-} else {
-    echo "No hay alumnos inscritos a esa materia";
+    $table .= '</table>';
+    return $table;
+}
+
+$result = $db->query(queryStudentsSubject($codeOfSubject));
+
+if ($result->num_rows > 0){
+    echo generateTable($result);
+}else{
+    echo "No se encontraron alumnos inscriptos a las materia";
 }
 
 // echo $codeOfSubject;
 
+$db->close();
 ?>
