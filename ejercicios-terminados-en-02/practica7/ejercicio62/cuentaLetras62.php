@@ -15,7 +15,7 @@ class cuentaLetras
         $this->sentence = $sentence;
     }
 
-    public function getTheLongestWord(){
+    public function getTheLongestWord($sentence){
         $sentence = explode(' ', $this->sentence);
         $longestWord = "";
         foreach ($sentence as $candidate){
@@ -26,7 +26,7 @@ class cuentaLetras
         return $longestWord;
     }
 
-    public function getTheLongestsWords(){
+    public function getTheLongestsWords($sentence){
         $sentence = explode(' ', $this->sentence);
         $longetsWords = [];
         $maxLength = 0;
