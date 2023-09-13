@@ -4,6 +4,8 @@ require_once 'cuentaCorriente2.php';
 
 $account = new CuentaCorriente("Maximiliano Treggia", "40891632");
 
+echo "Se creó la cuenta corriente con éxito.<br>";
+
 $withdrawAmount = 100;
 if ($account->withdrawMoney($withdrawAmount)) {
     echo "Se retiraron $withdrawAmount pesos con éxito.<br>";

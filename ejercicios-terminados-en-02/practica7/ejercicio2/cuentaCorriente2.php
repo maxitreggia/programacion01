@@ -17,7 +17,7 @@
 class CuentaCorriente
 {
     //propitiates
-    private $nameOfBank;
+    private  $nameOfBank;
     private $customerName;
     private $dniCustomer;
     private $balance;
@@ -25,7 +25,7 @@ class CuentaCorriente
 
     //methods
     public function __construct($customerName, $dniCustomer){
-        $this->nameOfBank = "Banco Corriente";
+        $this->nameOfBank = "Banco Corriente" ;
         $this->customerName = $customerName;
         $this->dniCustomer = $dniCustomer;
         $this->balance = 100;
@@ -42,12 +42,13 @@ class CuentaCorriente
         ];
     }
 
-    public function withdrawMoney ($amount){
-        if($amount > $this->balance + $this->overdraftLimit) {
+    public function withdrawMoney ($amount)
+    {
+        if ($amount > $this->balance + $this->overdraftLimit) {
             return "La cantidad que intentas retirar excede tu saldo más tu límite de descubierto.";
-        } else{
+        } else {
             $this->balance -= $amount;
-            return $this->balance;
+            return "La operación se ha realizado correctamente.";
         }
     }
 
