@@ -16,49 +16,57 @@
 
 class CuentaCorriente
 {
-    //propitiates
-    private  $nameOfBank;
-    private $customerName;
-    private $dniCustomer;
-    private $balance;
-    private $overdraftLimit;
+    private string $bankName;
+    private string $customerFullName;
+    private string $customerDni;
+    private float $balance;
+    private float $overdraftLimit;
 
-    //methods
-    public function __construct($customerName, $dniCustomer){
-        $this->nameOfBank = "Banco Corriente" ;
-        $this->customerName = $customerName;
-        $this->dniCustomer = $dniCustomer;
+    public function __construct(string $customerFullName, string $customerDni)
+    {
+        // Esto cumple la funcion del metodo "crear cuenta"
+        $this->bankName = "Banco Corriente";
+        $this->customerFullName = $customerFullName;
+        $this->customerDni = $customerDni;
         $this->balance = 100;
         $this->overdraftLimit = -500;
     }
 
-    public function showInformation(){
+    public function showInformation():array
+    {
+        // Devolvemos un array para poder acceder a estos valores programaticamente. Dejamos a cargo del
+        // consumidor del metodo imprimir la informacion en pantalla
         return [
-            "Nombre del banco" => $this->nameOfBank,
-            "Nombre" => $this->customerName,
-            "D.N.I" => $this->dniCustomer,
-            "Saldo inicial" => $this->balance,
-            "limite de descubierto" => $this->overdraftLimit,
+            "bankName" => $this->bankName,
+            "customerFullName" => $this->customerFullName,
+            "customerDni" => $this->customerDni,
+            "balance" => $this->balance,
+            "overdraftLimit" => $this->overdraftLimit,
         ];
     }
 
-    public function withdrawMoney ($amount)
+    public function withdraw(float $amount):bool
     {
-        if ($amount > $this->balance + $this->overdraftLimit) {
-            return "La cantidad que intentas retirar excede tu saldo más tu límite de descubierto.";
-        } else {
-            $this->balance -= $amount;
-            return "La operación se ha realizado correctamente.";
+        if ($amount <= 0) {
+            // aca normalmente lanzariamos una excepcion ya que retirar un valor negativo seria un error
+            return false;
         }
+        if ($amount > $this->balance + abs($this->overdraftLimit)) {
+            return false;
+        }
+        $this->balance -= $amount;
+        return true;
     }
 
-    public function depositMoney ($amount){
-        if($amount > 0){
+    public function deposit(float $amount):void
+    {
+        if ($amount > 0) {
             $this->balance += $amount;
         }
     }
 
-    public function modifyBankName ($newNameBank){
-        $this->nameOfBank = $newNameBank;
+    public function setBankName(string $newBankName):void
+    {
+        $this->bankName = $newBankName;
     }
 }

@@ -5,37 +5,39 @@
 //palabras que tuvieron la máxima longitud. Utilizar distintos métodos para cada una de
 //las acciones.
 
-
 class cuentaLetras
 {
-    private $sentence;
+    private string $sentence;
 
     public function __construct($sentence)
     {
         $this->sentence = $sentence;
     }
 
-    public function getTheLongestWord($sentence){
-        $sentence = explode(' ', $this->sentence);
+    public function getTheLongestWord()
+    {
+        //Devuelve la palabra mas larga encontrada, si hay mas de una devuelve la primera
+        $words = explode(' ', $this->sentence);
         $longestWord = "";
-        foreach ($sentence as $candidate){
-            if(strlen($candidate)>strlen($longestWord)){
-                $longestWord = $candidate;
+        foreach ($words as $word) {
+            if (strlen($word) > strlen($longestWord)) {
+                $longestWord = $word;
             }
         }
         return $longestWord;
     }
 
-    public function getTheLongestsWords($sentence){
-        $sentence = explode(' ', $this->sentence);
+    public function getTheLongestsWords()
+    {
+        $words = explode(' ', $this->sentence);
         $longetsWords = [];
         $maxLength = 0;
-        foreach ($sentence as $word){
-            $wordLegth = strlen($word);
-            if($wordLegth > $maxLength){
-                $maxLength = $wordLegth;
+        foreach ($words as $word) {
+            $wordLength = strlen($word);
+            if ($wordLength > $maxLength) {
+                $maxLength = $wordLength;
                 $longetsWords = [$word];
-            }elseif ($wordLegth == $maxLength){
+            } elseif ($wordLength == $maxLength) {
                 $longetsWords[] = $word;
             }
         }

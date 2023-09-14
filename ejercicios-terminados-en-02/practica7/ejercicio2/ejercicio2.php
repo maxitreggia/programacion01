@@ -7,25 +7,25 @@ $account = new CuentaCorriente("Maximiliano Treggia", "40891632");
 echo "Se creó la cuenta corriente con éxito.<br>";
 
 $withdrawAmount = 100;
-if ($account->withdrawMoney($withdrawAmount)) {
+if ($account->withdraw($withdrawAmount)) {
     echo "Se retiraron $withdrawAmount pesos con éxito.<br>";
 } else {
     echo "No se pudo retirar $withdrawAmount pesos. Saldo insuficiente.<br>";
 }
 
 $depositAmount = 200;
-$account->depositMoney($depositAmount);
+$account->deposit($depositAmount);
 
 $infoAccount = $account->showInformation();
 echo "Información de la cuenta corriente: <br>";
-echo "Nombre del banco: {$infoAccount['Nombre del banco']} <br>";
-echo "Nombre: {$infoAccount['Nombre']}<br>";
-echo "D.N.I: {$infoAccount['D.N.I']}<br>";
-echo "Saldo actual: {$infoAccount['Saldo inicial']} pesos <br>";
-echo "Límite de descubierto: {$infoAccount['limite de descubierto']} pesos <br>";
+echo "Nombre del banco: {$infoAccount['bankName']} <br>";
+echo "Nombre: {$infoAccount['customerFullName']}<br>";
+echo "D.N.I: {$infoAccount['customerDni']}<br>";
+echo "Saldo actual: {$infoAccount['balance']} pesos <br>";
+echo "Límite de descubierto: {$infoAccount['overdraftLimit']} pesos <br>";
 
 $newBankName = "Banco Nación";
-$account->modifyBankName($newBankName);
+$account->setBankName($newBankName);
 
 $infoAccount = $account->showInformation();
-echo "Nombre del banco actualizado: {$infoAccount['Nombre del banco']}<br>";
+echo "Nombre del banco actualizado: {$infoAccount['bankName']}<br>";

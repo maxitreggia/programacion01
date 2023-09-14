@@ -9,10 +9,10 @@ $sentence2 = (new cuentaLetras("Elaborar un programa que permita leer una frase 
                                         más larga, en tal caso utilizar un arreglo para guardarlas y al final imprimir todas las
                                         palabras que tuvieron la máxima longitud."));
 
-$longestWord1 = $sentence1->getTheLongestWord($sentence1);
+$longestWord1 = $sentence1->getTheLongestWord();
 
-$longestWord2 = $sentence2->getTheLongestsWords($sentence2);
+$longestWord2 = $sentence2->getTheLongestsWords();
 
 echo "La palabra mas larga es:" . "<br>" . $longestWord1;
 echo "<br>";
-echo "Las palabras mas largas son:" ."<br>" . "[" . implode(", ", $longestWord2) . "]" ;
+echo "Las palabras mas largas son:" . "<br>" . "[" . implode(", ", $longestWord2) . "]";
