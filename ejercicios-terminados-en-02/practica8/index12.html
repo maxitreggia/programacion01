@@ -12,15 +12,21 @@
 
 <h3>Calcular el area</h3>
 <form action="ejercicio12.php" method="get">
+    <label>
         <select name="figure">
             <option value="triangle">Triángulo</option>
             <option value="square">Cuadrado</option>
             <option value="circle">Círculo</option>
             <option value="rectangle">Rectángulo</option>
         </select>
+    </label>
+    <label>
         <input type="number" name="side1" placeholder="Lado 1 o Base">
+    </label>
+    <label>
         <input type="number" name="side2" placeholder="Lado 2 o Altura/Radio">
-        <input type="submit" name="submit" value="Calcular">
+    </label>
+    <input type="submit" name="submit" value="Calcular">
 </form>
 
 </body>
