@@ -47,7 +47,7 @@ class Circle extends geometricFigure
 
 class Rectangle extends geometricFigure
 {
-    public function calculaTeArea(float $base, float $height):float
+    public function calculateArea(float $base, float $height):float
     {
         return ($base * $height);
     }
