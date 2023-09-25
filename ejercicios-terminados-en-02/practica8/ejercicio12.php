@@ -48,4 +48,7 @@ switch ($typeOfFigure) {
             echo "Por favor, ingresa los lados del rectángulo. (Lado1 = Base y Lado2 = Altura)";
         }
         break;
+    default:
+        echo "Opcion no valida";
+        return;
 }
