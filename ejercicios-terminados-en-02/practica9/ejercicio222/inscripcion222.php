@@ -10,65 +10,50 @@
 //Desarrollar un programa que permita agregar más inscripciones de alumnos a los
 //exámenes.
 
-class Inscripcion {
-
+// Clase Inscripción
+class Inscripcion
+{
+    // Atributos
     private int $legajo;
-    private int $codigoMateria;
-    private int $diaExamen;
-    private int $mesExamen;
-    private int $anioExamen;
+    private string $materia;
+    private int $dia;
+    private int $mes;
+    private int $anio;
     private string $apellidoNombre;
-    private string $server;
-    private string $username;
-    private string $password;
-    private string $database;
 
-    public function __construct(array $datos) {
-        $this->legajo = $datos["legajo"];
-        $this->codigoMateria = $datos["codigoMateria"];
-        $this->diaExamen = $datos["diaExamen"];
-        $this->mesExamen = $datos["mesExamen"];
-        $this->anioExamen = $datos["anioExamen"];
-        $this->apellidoNombre = $datos["apellidoNombre"];
-        $this->server = 'localhost';
-        $this->username = 'tu_usuario';
-        $this->password = 'tu_contraseña';
-        $this->database = 'tu_base_de_datos';
+    public function __construct($legajo, $materia, $dia, $mes, $anio, $apellidoNombre)
+    {
+        $this->legajo = $legajo;
+        $this->materia = $materia;
+        $this->dia = $dia;
+        $this->mes = $mes;
+        $this->anio = $anio;
+        $this->apellidoNombre = $apellidoNombre;
     }
 
-    private function connect(): mysqli {
-        $connection = new mysqli($this->server, $this->username, $this->password, $this->database);
-        if ($connection->connect_error) {
-            die("Error al conectarse a la base de datos: " . $connection->connect_error);
-        }
-        return $connection;
-    }
+    public function agregarInscripcion(): void
+    {
+        // Conectarse a la base de datos
+        $db = new PDO("mysql:host=localhost;dbname=inscripciones", "root", "");
 
-    public function agregarInscripcion():void {
-        try {
-            // Obtener la conexión a la base de datos.
-            $connection = $this->connect();
+        // Preparar la consulta
+        $sql = "INSERT INTO inscripciones (legajo, materia, dia, mes, anio, apellido_nombre)
+                VALUES (:legajo, :materia, :dia, :mes, :anio, :apellido_nombre)";
+        $stmt = $db->prepare($sql);
 
-            // Preparar la consulta SQL para insertar la inscripción.
-            $sql = "INSERT INTO Inscripcion (legajo, codigoMateria, diaExamen, mesExamen, anioExamen, apellidoNombre) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $connection->prepare($sql);
+        // Asignar los valores a los parámetros
+        $stmt->bindParam(":legajo", $this->legajo);
+        $stmt->bindParam(":materia", $this->materia);
+        $stmt->bindParam(":dia", $this->dia);
+        $stmt->bindParam(":mes", $this->mes);
+        $stmt->bindParam(":anio", $this->anio);
+        $stmt->bindParam(":apellido_nombre", $this->apellidoNombre);
 
-            // Ejecutar la consulta con los valores de los atributos de la inscripción.
-            $stmt->bind_param("ssssss", $this->legajo, $this->codigoMateria, $this->diaExamen, $this->mesExamen, $this->anioExamen, $this->apellidoNombre);
-            $stmt->execute();
+        // Ejecutar la consulta
+        $stmt->execute();
 
-            // Comprobar si la inserción fue exitosa.
-            if ($stmt->affected_rows > 0) {
-                echo "Inscripción exitosa.";
-            } else {
-                echo "Error al agregar la inscripción.";
-            }
-
-            // Cerrar la conexión.
-            $stmt->close();
-            $connection->close();
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
+        // Cerrar la conexión
+        $db = null;
     }
 }
+

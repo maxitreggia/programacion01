@@ -8,51 +8,78 @@
 //alumno, y que agregue este nuevo registro en la tabla. Se debe validar que el alumno
 //no haya sido ingresado en la BD con anterioridad.
 
-class BaseDeDatos {
-    private PDO $pdo;
+// Clase Alumno
+class Alumno
+{
+    // Atributos
+    private int $dni;
+    private string $nombre;
+    private string $apellido;
 
-    public function __construct() {
-        $this->pdo = new PDO('mysql:host=localhost;dbname=prog2', 'estudiante', 'final');
+    // Constructor
+    public function __construct(int $dni,string $nombre,string $apellido)
+    {
+        $this->dni = $dni;
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
     }
 
-    public function insertarAlumno(Alumno $alumno): void
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM alumnos WHERE dni = ?");
-        $stmt->execute([$alumno->getDni()]);
-        $alumnoEncontrado = $stmt->fetch();
+    // Métodos
 
-        if ($alumnoEncontrado) {
-            throw new Exception("Ya existe un alumno con el DNI " . $alumno->getDni());
+    /**
+     * @return bool
+     */
+    public function agregarAlumno(): bool
+    {
+        // Obtener los parámetros del método POST
+        $dni = $_POST["dni"];
+        $nombre = $_POST["nombre"];
+        $apellido = $_POST["apellido"];
+
+        // Validar que el alumno no haya sido ingresado en la BD
+        $databaseConnection = new DatabaseConnection("localhost", "estudiante", "final", "prog2");
+        $query = "SELECT dni FROM alumnos WHERE dni = $dni";
+        $result = $databaseConnection->executeQuery($query);
+        if ($result->num_rows > 0) {
+            return false;
         }
 
-        $stmt = $this->pdo->prepare("INSERT INTO alumnos (dni, nombre, apellido) VALUES (?, ?, ?)");
-        $stmt->execute([$alumno->getDni(), $alumno->getNombre(), $alumno->getLastname()]);
+        // Agregar el alumno a la base de datos
+        $query = "INSERT INTO alumnos (dni, nombre, apellido)
+                VALUES ($dni, '$nombre', '$apellido')";
+        $databaseConnection->executeQuery($query);
+
+        return true;
     }
 }
 
-class Alumno {
-    private int $dni;
-    private string $name;
-    private string $lastname;
+// Clase DatabaseConnection
+class DatabaseConnection
+{
+    private string $server;
+    private string $username;
+    private string $password;
+    private string $database;
 
-    public function __construct(int $dni, string $name, string $lastname) {
-        $this->dni = $dni;
-        $this->name = $name;
-        $this->lastname = $lastname;
+    public function __construct($server, $username, $password, $database) {
+        $this->server = $server;
+        $this->username = $username;
+        $this->password = $password;
+        $this->database = $database;
     }
 
-    public function getDni(): int
-    {
-        return $this->dni;
+    private function connect():mysqli {
+        $connection = new mysqli($this->server, $this->username, $this->password, $this->database);
+        if ($connection->connect_error) {
+            die("Error al conectarse a la base de datos: " . $connection->connect_error);
+        }
+        return $connection;
     }
 
-    public function getNombre(): string
-    {
-        return $this->name;
-    }
-
-    public function getLastname(): string
-    {
-        return $this->lastname;
+    public function executeQuery(string $query):mysqli_result {
+        $connection = $this->connect();
+        $result = $connection->query($query);
+        $connection->close();
+        return $result;
     }
 }
