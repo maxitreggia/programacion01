@@ -9,5 +9,7 @@ $number_of_illustrations = $_POST['number_of_illustrations'];
 $book = LibroDigital::createLibro($title, $author, $number_of_characters, $number_of_illustrations);
 
 $editing_cost = $book->calculateEditingCost();
+$bytes = $book->calculateAmountOfBytes();
 
 echo "El costo de edición del libro es $" . $editing_cost . ".<br>";
+echo "El libro ocupara:" . $bytes . "<br>";

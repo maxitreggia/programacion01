@@ -59,13 +59,13 @@ class Libro {
                 return self::COST;
         }
     }
-}
-
-class LibroDigital extends Libro {
     public function calculateAmountOfBytes(): int
     {
         return $this->number_of_characters + ($this->number_of_illustrations * 1000);
     }
+}
+
+class LibroDigital extends Libro {
 
     public function calculateEditingCost(): float
     {
