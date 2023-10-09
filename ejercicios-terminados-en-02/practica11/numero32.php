@@ -14,6 +14,8 @@
 
 namespace practica11;
 
+use Exception;
+
 class Numero
 {
     private int|float $pivot;
@@ -61,5 +63,18 @@ class Numero
         $mostrarSucesion .= "Sucesión inversa: " . implode(', ', $sucesionInversa) . "<br>";
 
         return $mostrarSucesion;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function validar(): void
+    {
+        if(!is_int($this->pivot) && !is_float($this->pivot)){
+            throw new Exception("El pivot debe ser un número");
+        }
+        if($this->pivot < 0){
+            throw new Exception("El pivot debe ser un número positivo");
+        }
     }
 }
