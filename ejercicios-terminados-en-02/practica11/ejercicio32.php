@@ -4,7 +4,7 @@ use practica11\Numero;
 
 require_once 'numero32.php';
 
-$pivot = $_POST['pivot'] ?? null; // Usamos el operador de fusión de null para manejar el caso en que no se proporciona 'pivot'
+$pivot = $_POST['pivot'];
 
 try {
     $numero = new Numero($pivot);
